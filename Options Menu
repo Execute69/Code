@@ -1,0 +1,68 @@
+Step 1: add a directory in res as menu and add a menu resourse file in menu directory and add this code
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/sumukh"
+        android:id="@+id/sumukh"/>
+    <item android:title="@string/profile"
+        android:id="@+id/profile"/>
+    <item android:title="@string/favourite"
+        android:id="@+id/favourite"/>
+    <item android:title="@string/Add"
+        android:id="@+id/Add"/>
+    <item android:title="@string/login"
+        android:id="@+id/login"/>
+    <item android:title="@string/logout"
+        android:id="@+id/logout"/>
+</menu>
+
+Step 2: add this in string.xml file
+
+
+
+
+    <string name="sumukh">Sumukh</string>
+    <string name="profile">Profile</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="favourite">Favourites</string>
+    <string name="Add">Add</string>
+
+Step 3 : add Java code in main_activity
+
+
+
+@Override
+public boolean onCreateOptionsMenu(Menu menu) {
+    MenuInflater inflater =getMenuInflater();
+    inflater.inflate(R.menu.menu_items,menu);
+    return true;
+}
+
+@Override
+public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    int id = item.getItemId();
+    switch (id){
+        case R.id.profile:
+            Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+            break;
+        case R.id.sumukh:
+            Toast.makeText(this, "Name: Sumukh", Toast.LENGTH_SHORT).show();
+            break;
+        case R.id.login:
+            Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show();
+            break;
+        case R.id.logout:
+            Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+            break;
+        case R.id.add:
+            Toast.makeText(this, "Add", Toast.LENGTH_SHORT).show();
+            break;
+        case R.id.favourite:
+            Toast.makeText(this, "Favourites", Toast.LENGTH_SHORT).show();
+            break;
+    }
+    return true;
+}
+
