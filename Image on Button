@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawableRight="@drawable/ic_launcher_background"
+        android:text="TxT"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="314dp"
+        android:layout_marginTop="130sp"/>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="379dp"
+        android:layout_height="346dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50sp"
+        tools:layout_editor_absoluteX="141dp"
+        tools:layout_editor_absoluteY="129dp"
+        tools:srcCompat="@drawable/ic_launcher_background" />
+</LinearLayout>
+
+This is xml file for design
+
+Step 2:java file for toast
+package com.example.slip6;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+    ImageView ig;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ig=(ImageView)  findViewById(R.id.imageView);
+        ig.setImageResource(R.drawable.img)
+
+        ig.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "hello", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+}
+
