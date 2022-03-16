@@ -1,0 +1,106 @@
+Popup Menu
+
+In android, Popup Menu displays a list of items in a modal popup window that is anchored to the view. The popup menu will appear below the view if there is a room or above the view in case if there is no space and it will be closed automatically when we touch outside of the popup. The android Popup Menu provides an overflow style menu for actions that are related to specific content.
+
+In android, the Popup Menu provides an overflow of actions that are related to specific content and the actions in popup menu won’t affect the corresponding content.  The popup menu won’t support any item shortcuts and item icons.
+ 
+In android, Popup menu is available with API level 11 (Android 3.0) and higher versions. If you are using Android 3.0 +, the Popup Menu won’t support any item shortcuts and item icons in the menu.
+
+Create Android Popup Menu in XML File
+In android, to define popup menu, we need to create a new folder menu inside of our project resource directory (res/menu/) and add a new XML (menu_example) file to build the menu.
+
+popup_menu.xml
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/search_item"
+        android:title="Search" />
+    <item android:id="@+id/upload_item"
+        android:title="Upload" />
+    <item android:id="@+id/copy_item"
+        android:title="Copy" />
+    <item android:id="@+id/print_item"
+        android:title="Print" />
+    <item android:id="@+id/share_item"
+        android:title="Share" />
+    <item android:id="@+id/bookmark_item"
+        android:title="BookMark" />
+</menu>
+
+activity_main.xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btnShow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Popup Menu"
+        android:layout_marginTop="200dp" android:layout_marginLeft="100dp"/>
+
+</LinearLayout>
+Load Android Popup Menu from an Activity
+To show the popup menu for the view, we need to instantiate Popup constructor and use MenuInflater to load the defined menu resource using MenuInflater.inflate() like as shown below.
+Handle Android Popup Menu Click Events
+To perform an action when the user selects a menu item, we need to implement the PopupMenu.OnMenuItemClickListener interface and register it with our PopupMenu by calling setOnMenuItemclickListener(). When the user selects an item, the system calls the onMenuItemClick() callback in your interface.
+
+MainActivity.java
+package org.girish.popupmenuapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
+
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Button btn = (Button) findViewById(R.id.btnShow);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popup = new PopupMenu(MainActivity.this, v);
+                popup.setOnMenuItemClickListener(MainActivity.this);
+                popup.inflate(R.menu.popup_menu);
+                popup.show();
+            }
+        });
+    }
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        Toast.makeText(this, "Selected Item: " +item.getTitle(), Toast.LENGTH_SHORT).show();
+        switch (item.getItemId()) {
+            case R.id.search_item:
+                // do your code
+                return true;
+            case R.id.upload_item:
+                // do your code
+                return true;
+            case R.id.copy_item:
+                // do your code
+                return true;
+            case R.id.print_item:
+                // do your code
+                return true;
+            case R.id.share_item:
+                // do your code
+                return true;
+            case R.id.bookmark_item:
+                // do your code
+                return true;
+            default:
+                return false;
+        }
+    }
+}
