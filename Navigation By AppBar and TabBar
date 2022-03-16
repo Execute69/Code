@@ -1,0 +1,179 @@
+Step 1: add this code in main_activity.xml 
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tablay1"
+        android:background="#4200D8"
+        app:tabTextColor="@color/black"
+        app:tabSelectedTextColor="#FFFFFF"
+        app:tabIndicator="@color/black">
+    <com.google.android.material.tabs.TabItem
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@id/tab1"
+        android:text="@string/chats">
+
+    </com.google.android.material.tabs.TabItem>
+    <com.google.android.material.tabs.TabItem
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@id/tab2"
+        android:text="@string/status">
+
+    </com.google.android.material.tabs.TabItem>
+    <com.google.android.material.tabs.TabItem
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@id/tab3"
+        android:text="@string/calls">
+
+    </com.google.android.material.tabs.TabItem>
+
+    </com.google.android.material.tabs.TabLayout>
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/vpager"
+        />
+</LinearLayout>
+
+Step 2: add this code in main_activity.java
+package com.example.pexam7;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import android.os.Bundle;
+
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
+
+public class MainActivity extends AppCompatActivity {
+    TabLayout tabLayout;
+    TabItem tabItem1,tabItem2,tabItem3;
+    ViewPager viewpager;
+    pageAdapter pageAdapter;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        tabLayout=(TabLayout)findViewById(R.id.tablay1);
+        tabItem1=(TabItem) findViewById(R.id.tab1);
+        tabItem2=(TabItem) findViewById(R.id.tab2);
+        tabItem3=(TabItem) findViewById(R.id.tab3);
+        viewpager =(ViewPager) findViewById(R.id.vpager);
+        pageAdapter= new pageAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
+        viewpager.setAdapter(pageAdapter);
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewpager.setCurrentItem(tab.getPosition());
+                if(tab.getPosition()==0||tab.getPosition()==1||tab.getPosition()==2)
+                    pageAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
+    }
+}
+
+Step 3: create new java class in pacakge below activity main
+package com.example.pexam7;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+
+public class pageAdapter extends FragmentPagerAdapter {
+    int tabcounnt;
+    public pageAdapter(@NonNull FragmentManager fm, int behavior) {
+        super(fm, behavior);
+        tabcounnt=behavior;
+    }
+
+    @NonNull
+    @Override
+    public Fragment getItem(int position) {
+        switch (position){
+            case 0:return new ftab1();
+            case 1:return new ftab2();
+            case 2:return new ftab3();
+            default:return null;
+        }
+    }
+
+    @Override
+    public int getCount() {
+        return tabcounnt;
+    }
+}
+
+Step 4: create 3 new blank fragment and add code in xml
+Fag1
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ftab1">
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="35dp"
+        android:textColor="#FF3700B3"
+        android:text="@string/chats" />
+</FrameLayout>
+
+Fag 2
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ftab2">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="35sp"
+        android:textColor="#FF3700B3"
+        android:text="@string/status"  />
+</FrameLayout>
+
+Fag 3
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ftab3">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="35dp"
+        android:textColor="#FF3700B3"
+        android:text="@string/calls"  />
+</FrameLayout>
+
+Step 5: Done
